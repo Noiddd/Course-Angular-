@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Directives</title>
+  </head>
+  <body>
+    <button (click)="onlyOdd = !onlyOdd">Only show odd number</button>
+    <br />
+    <ul>
+      <div *ngIf="onlyOdd == true">
+        <li
+          [ngClass]="{ odd: odd % 2 !== 0 }"
+          [ngStyle]="{
+            backgroundColor: odd % 2 !== 0 ? 'yellow' : 'transparent'
+          }"
+          *ngFor="let odd of oddNumbers"
+        >
+          {{ odd }}
+        </li>
+      </div>
+      <div *ngIf="onlyOdd == false">
+        <li
+          [ngClass]="{ odd: even % 2 !== 0 }"
+          [ngStyle]="{
+            backgroundColor: even % 2 !== 0 ? 'yellow' : 'transparent'
+          }"
+          *ngFor="let even of evenNumbers"
+        >
+          {{ even }}
+        </li>
+      </div>
+      <ng-template [ngIf]="!onlyOdd">
+        <div>
+          <li
+            [ngClass]="{ odd: even % 2 !== 0 }"
+            [ngStyle]="{
+              backgroundColor: even % 2 !== 0 ? 'yellow' : 'transparent'
+            }"
+            *ngFor="let even of evenNumbers"
+          >
+            {{ even }}
+          </li>
+        </div>
+      </ng-template>
+    </ul>
+    <p appBasicHighlight>Styled with basic directive</p>
+    <p appBetterHighlight [defaultColor]="'yellow'" [highlightColor]="'red'">
+      Styled with a better directive
+    </p>
+    <div [ngSwitch]="value">
+      <p *ngSwitchCase="5">Value is 5</p>
+      <p *ngSwitchCase="10">Value is 10</p>
+      <p *ngSwitchCase="100">Value is 100</p>
+      <p *ngSwitchDefault>Value is default</p>
+    </div>
+  </body>
+</html>
